@@ -40,7 +40,10 @@ function* fetchElements() {
 function* postElement(action) {
     try {
         yield axios.post('/api/element', action.payload);
+        // Call the GET 
         yield put ({ type: 'FETCH_ELEMENTS' }); 
+        //We can pass functions through actions 
+        action.setNewElement('');
     } catch (error) {
         console.log(`Error in postElement: ${error}`);
         alert('Something went wrong'); 

@@ -18,7 +18,8 @@ function App() {
   const addElement = () => {
     dispatch({ 
       type: 'ADD_ELEMENT', 
-      payload:{ name: newElement }
+      payload:{ name: newElement },
+      setNewElement: setNewElement
     });
   }
 
