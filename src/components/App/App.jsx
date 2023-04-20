@@ -16,19 +16,11 @@ function App() {
   }, []);
 
   const addElement = () => {
-    axios.post('/api/element', { 
-      name: newElement
-    })
-      .then(() => {
-        getElements();
-        setNewElement('');
-      })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
-
+    dispatch({ 
+      type: 'ADD_ELEMENT', 
+      payload:{name: elementName}
+    });
   }
-
 
   return (
     <div>

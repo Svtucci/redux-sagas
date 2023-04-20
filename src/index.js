@@ -4,8 +4,8 @@ import App from './components/App/App.jsx';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
-//STEP 0, npm install redux-saga 
-//STEP 1. Import createSagaMiddleware
+//STEP 1, npm install redux-saga 
+//STEP 2. Import createSagaMiddleware
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
@@ -37,12 +37,24 @@ function* fetchElements() {
     }
 }
 
+function* postElement(action) {
+    try {
+        yield axios.post('/api/element', action.payload);
+        yield put ({ type: 'FETCH_ELEMENTS' }); 
+    } catch (error) {
+        console.log(`Error in postElement: ${error}`);
+        alert('Something went wrong'); 
+    }
+}
+
 //STEP 3. Create a root saga generator function
 // this is the saga that will watch for actions
 function* rootSaga() {
     // 'FETCH_ELEMENTS' is our action type. 
     // DO NOT USE THE SAME ACTION AS THE REDUCER aka SET_ELEMENTS in the yield put 
     yield takeEvery('FETCH_ELEMENTS', fetchElements); 
+    yield takeEvery('ADD_ELEMENT', postElement)
+    // More sagas go here 
 }
 
 
