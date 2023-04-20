@@ -8,12 +8,7 @@ function App() {
   const [newElement, setNewElement] = useState('');
 
   const getElements = () => {
-    axios.get('/api/element').then(response => {
-      dispatch({ type: 'SET_ELEMENTS', payload: response.data });
-    })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
+    dispatch({ type: 'FETCH_ELEMENTS' }); 
   }
 
   useEffect(() => {
